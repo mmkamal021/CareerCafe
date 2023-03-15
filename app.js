@@ -1,6 +1,7 @@
 const bodyParser = require('body-parser')
 const express = require('express')
 const dbConnect = require('./config/dbConnect')
+const { notFound, errorHandler } = require('./middlewares/errorHandler')
 const app = express()
 const dotenv = require('dotenv').config()
 const PORT = process.env.PORT || 4000
@@ -29,12 +30,17 @@ app.get('/health', (_req, res) => {
 */
 
 // moduel scafolding
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json()) // prob
+app.use(bodyParser.urlencoded({ extended: false })) // prob
 app.use('/api/user', authRoute)
+
+app.use(notFound)
+app.use(errorHandler)
 
 // listing port
 app.listen(PORT, () => {
   console.log(`Server is listening on PORT ${PORT}`)
   console.log(`localhost:${PORT}`)
 })
+
+
