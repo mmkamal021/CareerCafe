@@ -6,6 +6,7 @@ const app = express()
 const dotenv = require('dotenv').config()
 const PORT = process.env.PORT || 4000
 const authRoute = require('./routes/authRoute')
+const cookieParser = require('cookie-parser')
 dbConnect()
 /*
 // const cors = require('cors')
@@ -32,6 +33,7 @@ app.get('/health', (_req, res) => {
 // moduel scafolding
 app.use(bodyParser.json()) // prob
 app.use(bodyParser.urlencoded({ extended: false })) // prob
+app.use(cookieParser())
 app.use('/api/user', authRoute)
 
 app.use(notFound)
